@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.Set;
 
 public class Service {
-    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/furniture";
+    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/course";
     private static final String JDBC_USER = "root";
     private static final String JDBC_PASSWORD = "root";
 
@@ -25,7 +25,7 @@ public class Service {
         ResultSet result = null;
         try {
             Connection connection = getConnection();
-            String sql = "SELECT role FROM users WHERE username = ? AND password = ?";
+            String sql = "SELECT role FROM user WHERE username = ? AND password = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, username);
             statement.setString(2, password);
@@ -41,7 +41,7 @@ public class Service {
         ResultSet result = null;
         try {
             Connection connection = getConnection();
-            String enrolledCoursesQuery = "SELECT * FROM enrolled join course ON enrolled.course_id = course.course_id WHERE username = ?";
+            String enrolledCoursesQuery = "SELECT * FROM enrolled join course ON enrolled.courseId = course.courseId WHERE username = ?";
             PreparedStatement enrolledCoursesStmt = connection.prepareStatement(enrolledCoursesQuery);
             enrolledCoursesStmt.setString(1, username);
             ResultSet enrolledCoursesRs = enrolledCoursesStmt.executeQuery();
@@ -52,7 +52,7 @@ public class Service {
         }
         return result;
     }
-    public ResultSet getCreatedCourses(String username){
+    public static ResultSet getCreatedCourses(String username){
         ResultSet result = null;
         try {
             Connection connection = getConnection();
